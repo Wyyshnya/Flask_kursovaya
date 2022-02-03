@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+<head>
+</head>
+<body>
+<div id="content">
+    <h1>Hi, {{ current_user.username }}!</h1>
+
+    {% for post in posts %}
+    <div class="home_post">
+        <a href="/index/{{ post[0] }}">{{ post[0] }}</a>
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
+{% endblock %}

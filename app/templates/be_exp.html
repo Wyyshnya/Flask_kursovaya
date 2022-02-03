@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Заполните формы</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="home_post">
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}<br>
+
+        </p>
+            <p>
+            {{ form.phone.label }}<br>
+            {{ form.phone(size=32) }}<br>
+        </p>
+        <span>Расскажите о вашем опыте</span><br>
+             <p>
+            {{ form.text(style="width:50%; height:25%; resize: none; background: none; margin-top: 1%;") }}<br>
+        </p>
+        </div>
+        <span style="margin-left: 43%">После отправки формы, с вами свяжутся</span><br>
+        <input type="submit" value="Отправить" style="width: 10%; margin-left: 45%; margin-top: 1%;">
+    </form>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+</head>
+<body>
+<div id="content">
+    <h1>{{ posts[3] }}</h1>
+    <h2>Автор: {{ posts[6] }}</h2>
+    {% if current_user != user %}
+    <form  action="" method="post">
+    <div><span>Попросите помощи у эксперта<br></span>
+    <textarea name="help" style="width:300px; height:50px; resize: none; background: none; margin-top: 1%;"></textarea>
+    <br><input type="submit" value="Send" style="width: 10%; margin-top: 1%;">
+    </div>
+    </form>
+    {% endif %}
+    <div class = 'home_post'>
+  <video width="600" height="400" controls>
+    <source src={{ url_for('custom_static', filename=posts[1]) }} type="video/mp4">
+      Your browser does not support the video tag.</video>
+        </div>
+</div>
+<div id="description" style="display:none; text-align: center;">{{ posts[2] }}
+</div>
+<button id="add" onclick="document.getElementById('description').style.display='block';
+                    document.getElementById('add').style.display='none';
+                    document.getElementById('close').style.display='block';" style="margin-left: 47%;">Показать описание</button>
+
+<button id="close" onclick=" document.getElementById('description').style.display='none';
+document.getElementById('close').style.display='none';
+document.getElementById('add').style.display='block';" style="display:none; margin-left: 47%;">Скрыть описание</button>
+<form action="" method="post" class="rating-area" id="rating-area">
+	<input type="radio" id="star-5" name="rating" value="5">
+	<label for="star-5" title="Оценка «5»"></label>
+	<input type="radio" id="star-4" name="rating" value="4">
+	<label for="star-4" title="Оценка «4»"></label>
+	<input type="radio" id="star-3" name="rating" value="3">
+	<label for="star-3" title="Оценка «3»"></label>
+	<input type="radio" id="star-2" name="rating" value="2">
+	<label for="star-2" title="Оценка «2»"></label>
+	<input type="radio" id="star-1" name="rating" value="1">
+	<label for="star-1" title="Оценка «1»"></label>
+    <input type="submit" value="Оценить видео" style="width: 60%; display: block; margin-left: 25%;">
+</form>
+<form action="" method="post">
+    <div>
+    <textarea name="comment" style="width:600px; height:150px; resize: none; background: none; margin-top: 2%;"></textarea>
+    <p>
+    <input type="submit" value="Comment" style="width: 10%; margin-top: 1%; margin-right: 80%;">
+    </p>
+    </div>
+    </form>
+{% for comm in comms %}
+    <div style="align: left">
+    <p style="text-align: left">Пользователь: {{ comm[5] }}</p>
+    <p style="text-align: left">Сказал: {{ comm[2] }}</p>
+    <button onclick="text{{comm[0]}}.style.display='block'">Reply</button>
+        {% if comm[6] %}
+        {% for com in comm[6] %}
+        <p style="text-align: left; margin-left: 2%;">Пользователь: {{ com[5] }}</p>
+         <p style="text-align: left; margin-left: 2%;">Ответил: {{ com[2] }}</p>
+        {% endfor %}
+        {% endif %}
+    <form action="" method="post" id="text{{comm[0]}}" style="display: none">
+        <textarea name="{{comm[0]}}" style="width:200px; height:100px; resize: none; background: none; margin-top: 1%;"></textarea>
+        <input type="submit" value="Reply" style="width: 10%;">
+    </form>
+    </div>
+{% endfor %}
+</body>
+</html>
+{% endblock %}

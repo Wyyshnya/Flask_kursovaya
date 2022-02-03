@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Измените информацию о вашем профиле</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="home_post">
+        <p>
+            <span><h1>Ваш никнейм</h1></span>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+            <span><h1>Изменить информацию о себе</h1></span>
+        <textarea id="about_p" name="about_p" style="width:50%; height:25%; resize: none; background: none; margin-top: 1%;"></textarea>
+        </div>
+        <input type="submit" value="Сохранить" style="width: 10%; margin-left: 45%; margin-top: 1%;">
+    </form>
+{% endblock %}

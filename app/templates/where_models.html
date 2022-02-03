@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body>
+<div id="content">
+    <h1>Hi, {{ current_user.username }}!</h1>
+    <form method="get" class="form_search" action="">
+    <input class="input_search" name="search" type="text" placeholder="Искать здесь...">
+    <button class="button_search" type="submit"></button>
+    </form>
+    {% for post in posts %}
+    <div class="home_post" style="margin-top: 2%;">
+        <a href="/index/{{category_name}}/{{models_category}}/{{ post[0] }}"><div>{{ post[3] }}<br>
+        <span>Автор: {{ post[7] }}</span><br>
+        <span>Оценка: {{ post[4] }}</span><br>
+        <span>Просмотров: {{ post[6] }}</span><br>
+    </div></a>
+    </div>
+    {% endfor %}
+
+
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <td><img src="{{ user.avatar(128) }}"></td></br>
+    <h1>Пользователь: {{ user.username }}</h1>
+    {{ super() }}
+    <h2>Последний раз был в сети: {{ moment(time).format('LLL') }}</h2>
+    <h3>Информация о пользователе</h3>
+    <div style="margin-left: 2%;">{{ about }}</div>
+    {% if user == current_user %}
+            <h1>Вы: {{ role[0] }}</h1>
+            <a href="{{ url_for('edit_profile') }}">Редактировать профиль</a><br>
+            {% if current_user.role == 1 %}
+                <div id="zapros" style="display: none;">
+                {% for zap in zapros %}
+                <div>
+                <h1>{{ moment(zap[5]).format('LLL') }}</h1>
+                <h1>Пользователь {{ zap[6] }} хочет стать экспертом</h1>
+                <h2>Почта - {{ zap[2] }}</h2>
+                <h2>Телефон - {{ zap[3] }}</h2>
+                <h2>О нём - {{ zap[4] }}</h2>
+                    <form method="post" id="{{zap[0]}}">
+                        <input name="users_exp" type="text" size="4" VALUE="{{zap[1]}}">
+                    <input type="submit" value="Сделать экспертом"  style="width: 30%;"></form>
+                </div>
+                {% endfor %}
+                </div>
+            <form>
+                <h1>Создать категорию</h1>
+            <input name="category" type="text">
+            <input type="submit" VALUE="Создать">
+            </form>
+            <form>
+                 <h1>Создать модель</h1>
+                <div style="text-align: center"><h1>{{ form.category.label }}</h1></div>
+                <div style="text-align: center">{{ form.category() }}</div>
+            <input name="models" type="text">
+            <input type="submit" VALUE="Создать">
+            </form>
+            <button id="look" onclick="document.getElementById('zapros').style.display='block';
+                    document.getElementById('look').style.display='none';
+                    document.getElementById('kool').style.display='block';">Показать прошения</button>
+
+            <button id="kool" onclick=" document.getElementById('zapros').style.display='none';
+            document.getElementById('kool').style.display='none';
+            document.getElementById('look').style.display='block';" style="display:none;">Скрыть прошения</button>
+            {% endif %}
+            {% if current_user.role == 3 %}
+            <a href="{{ url_for('be_expert') }}">Стать экспертом</a><br>
+            {% endif %}
+            {% if current_user.role == 2 %}
+            <form id="add_post" action="" method="post"  enctype=multipart/form-data novalidate style="display:none;">
+                <div style="text-align: center"><h1>{{ form.models.label }}</h1></div>
+                <div style="text-align: center">{{ form.models() }}</div>
+                <div style="text-align: center"><h1>{{ form.title.label }}</h1></div>
+                <div style="text-align: center"> {{ form.title() }}</div>
+            <div class="home_post">
+                <h1>{{ form.post.label }}</h1>
+            <div class="text_area">{{ form.post() }}</div>
+                <div style="text-align: center"> <h1>{{ form.file.label }}</h1></div>
+                <div>{{ form.file() }}</div>
+            <p style="width: 50%; margin-left: 25%;">{{ form.submit() }}</p>
+            </div>
+            </form>
+             <button id="add" onclick="document.getElementById('add_post').style.display='block';
+                    document.getElementById('add').style.display='none';
+                    document.getElementById('close').style.display='block';">Добавить пост</button>
+
+            <button id="close" onclick=" document.getElementById('add_post').style.display='none';
+            document.getElementById('close').style.display='none';
+            document.getElementById('add').style.display='block';" style="display:none;">Скрыть</button>
+
+            <div id="stat" style="display:none;">
+                {% for vid in video %}
+                <h1>Видео с названием: {{ vid[3] }}</h1>
+                <h2>Оценка: {{ vid[5] }}</h2>
+                <h2>Просмотров: {{ vid[7] }}</h2>
+                {% endfor %}
+            </div>
+            <button id="open" onclick="document.getElementById('stat').style.display='block';
+                    document.getElementById('open').style.display='none';
+                    document.getElementById('sloce').style.display='block';">Показать статистику</button>
+
+            <button id="sloce" onclick=" document.getElementById('stat').style.display='none';
+            document.getElementById('sloce').style.display='none';
+            document.getElementById('open').style.display='block';" style="display:none;">Скрыть статистику</button>
+
+    <div id="helps" style="display:none;">
+                {% for hel in helps %}
+                <h1>От пользователя: {{ hel[4] }}</h1>
+                <h2>{{ moment(hel[3]).format('LLL') }}</h2>
+                <h2>Сообщение: {{ hel[1] }}</h2>
+                {% endfor %}
+            </div>
+            <button id="show" onclick="document.getElementById('helps').style.display='block';
+                    document.getElementById('show').style.display='none';
+                    document.getElementById('not_show').style.display='block';">Показать нуждающихся</button>
+
+            <button id="not_show" onclick=" document.getElementById('helps').style.display='none';
+            document.getElementById('not_show').style.display='none';
+            document.getElementById('show').style.display='block';" style="display:none;">Скрыть нуждающихся</button>
+{% endif %}
+    {% endif %}
+    <p>
+    </p>
+{% endblock %}
